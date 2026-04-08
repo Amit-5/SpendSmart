@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SpendSmart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body style="font-family: Arial; background:#f5f6fa; margin:0;">
+
+<div style="max-width:600px; margin:auto; padding:20px;">
+
+    <h1 style="text-align:center;">💰 SpendSmart</h1>
+
+    <!-- Add Expense -->
+    <div style="background:white; padding:20px; border-radius:10px; margin-bottom:20px;">
+        <h3>Add Expense</h3>
+        <form method="POST">
+            <input type="number" name="amount" placeholder="Amount" required
+                style="width:48%; padding:10px; margin-right:2%;">
+            
+            <input type="text" name="category" placeholder="Enter category" required
+                style="width:48%; padding:10px;">
+
+            <br><br>
+
+            <button type="submit"
+                style="width:100%; padding:12px; background:#2ecc71; color:white; border:none; border-radius:6px;">
+                Add Expense
+            </button>
+        </form>
+    </div>
+
+    <!-- Filter -->
+    <div style="margin-bottom:15px;">
+        <form method="GET">
+            <input type="text" name="filter" placeholder="Filter by category"
+                style="width:70%; padding:8px;">
+            <button type="submit" style="padding:8px;">Filter</button>
+        </form>
+    </div>
+
+    <!-- Expense List -->
+    <div style="background:white; padding:20px; border-radius:10px;">
+        <h3>All Expenses</h3>
+        <h3>Category Summary</h3>
+
+{% for cat, amt in category_total.items() %}
+<div style="display:flex; justify-content:space-between;">
+    <span>{{ cat }}</span>
+    <span>₹{{ amt }}</span>
+</div>
+{% endfor %}
+
+<hr>
+
+        {% if expenses %}
+            {% for expense in expenses %}
+            <div style="display:flex; justify-content:space-between; margin-bottom:12px; padding:10px; border-radius:8px; background:#fafafa;">
+
+                <div>
+                    <b>₹{{ expense.amount }}</b><br>
+
+                    <small style="color:gray;">
+                        {{ expense.date.strftime('%d %b %Y, %I:%M %p') if expense.date else '' }}
+                    </small><br>
+
+                    <small style="text-transform:capitalize;">
+                        {{ expense.category }}
+                    </small>
+                </div>
+
+                <div>
+                    <a href="/delete/{{ expense.id }}" style="color:red;">Delete</a> |
+                    <a href="/edit/{{ expense.id }}">Edit</a>
+                </div>
+
+            </div>
+            {% endfor %}
+        {% else %}
+            <p style="text-align:center; color:gray;">No expenses yet</p>
+        {% endif %}
+
+        <h3 style="text-align:right;">Total: ₹{{ total }}</h3>
+    </div>
+
+</div>
+<canvas id="myChart" style="margin-top:20px;"></canvas>
+
+<script>
+    const data = {
+        labels: {{ category_total.keys() | list | safe }},
+        datasets: [{
+            data: {{ category_total.values() | list | safe }},
+        }]
+    };
+
+    new Chart(document.getElementById('myChart'), {
+        type: 'pie',
+        data: data,
+    });
+</script>
+</body>
+</html>
