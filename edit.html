@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Expense</title>
+</head>
+<body>
+
+<h2>Edit Expense</h2>
+
+<form method="POST">
+    <input type="text" name="amount" value="{{ expense.amount }}">
+    <input type="text" name="category" value="{{ expense.category }}">
+    <button type="submit">Update</button>
+</form>
+
+</body>
+</html>
