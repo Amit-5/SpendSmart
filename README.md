@@ -1,25 +1,35 @@
-# 💰 SpendSmart - Expense Tracker
+#  SpendSmart - Expense Tracker
 
-A simple full-stack expense tracker built using Flask and MySQL.
+SpendSmart is a simple full-stack expense tracker built using Flask and MySQL.  
+Now Dockerized using Docker Compose for easy setup and deployment.
 
-## Features
+---
+
+##  Features
+
 - Add expenses
 - Edit & delete expenses
 - Category-based tracking
 - Timestamp for each entry
 - Total expense calculation
+- Docker support
 
-## Tech Stack
-- Python (Flask)
+---
+
+##  Tech Stack
+
+- Python Flask
 - MySQL
-- HTML (Jinja2)
+- HTML/CSS
+- Docker
+- Docker Compose
 
-## How to Run
-1. Install dependencies:
-   pip install -r requirements.txt
+---
 
-2. Run app:
-   python app.py
+##  Run with Docker
 
-3. Open browser:
-   http://127.0.0.1:5000
+### Clone the repository
+
+```bash
+git clone https://github.com/Amit-5/SpendSmart.git
+cd SpendSmart
